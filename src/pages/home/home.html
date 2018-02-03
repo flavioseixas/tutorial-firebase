@@ -1,13 +1,13 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Notable Notes
+      Bloco de Notas
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <ion-card *ngFor="let note of notes" (click)="onItemClick(note)"> <!-- ion-item -->
+  <ion-card *ngFor="let note of notes" (click)="onItemClick(note)">
     <ion-card-header>
       {{ note.date | date }} 
     </ion-card-header>    

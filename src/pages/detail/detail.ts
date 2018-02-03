@@ -22,7 +22,6 @@ export class Detail {
     
     if(!this.note){
       this.note = {
-        id: '',        
         date: '', 
         title: '',
         content: ''         
@@ -57,15 +56,15 @@ export class Detail {
       // if note is blank don't do anything      
     }
     else if(this.newNoteFlag){
-      //this.noteService.addNote(this.note);  
-      console.log("add note");    
+      console.log("add note");
+      this.noteService.addItem(this.note);    
     }
     else if(this.deleteNoteFlag){
-      //this.noteService.removeNote(this.note);
       console.log("delete note");
+      this.noteService.deleteItem(this.note.key); 
     }
     else {
-      console.log("edit note:");
+      console.log("edit note");
       console.log(this.note.key);
       this.noteService.updateItem(this.note.key, this.note);
     }

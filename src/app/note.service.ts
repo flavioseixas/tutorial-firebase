@@ -10,8 +10,7 @@ export class NoteService{
   itemsRef: AngularFireList<any>;
   itemsObservable: Observable<any[]>;
 
-  constructor(private storage : Storage,
-    private db: AngularFireDatabase) {      
+  constructor(private db: AngularFireDatabase) {      
       this.itemsRef = db.list<Item>('/notes/');
       this.itemsObservable = this.itemsRef.snapshotChanges().map(actions => {
         return actions.map(action => ({key: action.key, ...action.payload.val() }));
@@ -22,8 +21,8 @@ export class NoteService{
     return this.itemsObservable;
   }
   
-  addItem(newName: string) {
-    this.itemsRef.push({ text: newName });
+  addItem(newText: string) {
+    this.itemsRef.push(newText);
   }
 
   updateItem(key: string, newText: string) {
