@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
+import { LoginPage } from '../login/login';
+import { DetailPage } from '../detail/detail';
+
 import { NoteService } from '../../app/note.service';
-import { AngularFireDatabase } from 'angularfire2/database';
-import { Observable } from 'rxjs/Observable';
+import { AuthService } from '../../app/auth.service';
 
 @Component({
   selector: 'page-home',
@@ -11,33 +13,46 @@ import { Observable } from 'rxjs/Observable';
 })
 export class HomePage {
 
-  notes: any;
+  notes;
+  userId;
 
   constructor(public navCtrl: NavController,
     private noteService: NoteService,
-    private db: AngularFireDatabase) {
+    private authService: AuthService) {
 
   }
 
   ngOnInit() {
-    this.noteService.fetchItems().subscribe(items => {
-      this.notes = items;
-      console.log(this.notes);
-      return items.map(item => item.key);
-    },
-    err => {
-      console.log(err);
+    this.authService.getCurrentUser().subscribe(authState => {
+      this.userId = authState.uid;
+      
+      this.noteService.fetchItems(this.userId).subscribe(items => {
+        this.notes = items;
+        console.log(this.notes);
+        return items.map(item => item.key);
+      },
+      err => {
+        console.log(err);
+      });      
     });
   }
 
+  logout() {
+    this.authService.logout();
+    this.navCtrl.setRoot(LoginPage);
+
+  }
   onItemClick(note){        
-    this.navCtrl. push('Detail', {
+    this.navCtrl. push(DetailPage, {
       notekey : note.key,
-      note : note
+      note : note,
+      userId : this.userId
     });             
   } 
 
   onAddClick(){    
-    this.navCtrl.push('Detail'); // for add, don’t pass in any parameters.
+    this.navCtrl.push(DetailPage, {
+      userId : this.userId
+    });
   }
 }

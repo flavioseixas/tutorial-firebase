@@ -11,30 +11,36 @@ export class NoteService{
   itemsObservable: Observable<any[]>;
 
   constructor(private db: AngularFireDatabase) {      
-      this.itemsRef = db.list<Item>('/notes/');
-      this.itemsObservable = this.itemsRef.snapshotChanges().map(actions => {
-        return actions.map(action => ({key: action.key, ...action.payload.val() }));
-    })
   }
 
-  fetchItems(): Observable<any[]> {   
+  fetchItems(usedId): Observable<any[]> {
+    this.itemsRef = this.db.list<Item>('/notes/' + usedId);
+    
+    this.itemsObservable = this.itemsRef.snapshotChanges().map(actions => {
+      return actions.map(action => ({
+        key: action.key, ...action.payload.val()
+      }));
+    })
+
     return this.itemsObservable;
   }
   
-  addItem(newText: string) {
+  addItem(newText: string, usedId) {
+    this.itemsRef = this.db.list<Item>('/notes/' + usedId);
+
     this.itemsRef.push(newText);
   }
 
-  updateItem(key: string, newText: string) {
+  updateItem(key: string, newText: string, usedId) {
+    this.itemsRef = this.db.list<Item>('/notes/' + usedId);
+
     this.itemsRef.update(key, newText);
   }
 
-  deleteItem(key: string) {    
-    this.itemsRef.remove(key); 
-  }
+  deleteItem(key: string, usedId) {    
+    this.itemsRef = this.db.list<Item>('/notes/' + usedId);
 
-  deleteEverything() {
-    this.itemsRef.remove();
+    this.itemsRef.remove(key); 
   }
 
 }

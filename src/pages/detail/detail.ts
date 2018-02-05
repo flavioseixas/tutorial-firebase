@@ -8,9 +8,10 @@ import { NoteService } from '../../app/note.service';
   selector: 'page-detail',
   templateUrl: 'detail.html',
 })
-export class Detail {
+export class DetailPage {
 
   note;
+  userId;
   notekey;
 
   newNoteFlag = false;
@@ -18,7 +19,8 @@ export class Detail {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private noteService: NoteService, private alertCtrl: AlertController) {
     this.note = this.navParams.get('note');
-    this.notekey = this.navParams.get('notekey');   
+    this.notekey = this.navParams.get('notekey');  
+    this.userId = this.navParams.get('userId');
     
     if(!this.note){
       this.note = {
@@ -57,16 +59,16 @@ export class Detail {
     }
     else if(this.newNoteFlag){
       console.log("add note");
-      this.noteService.addItem(this.note);    
+      this.noteService.addItem(this.note, this.userId);    
     }
     else if(this.deleteNoteFlag){
       console.log("delete note");
-      this.noteService.deleteItem(this.note.key); 
+      this.noteService.deleteItem(this.note.key, this.userId); 
     }
     else {
       console.log("edit note");
       console.log(this.note.key);
-      this.noteService.updateItem(this.note.key, this.note);
+      this.noteService.updateItem(this.note.key, this.note, this.userId);
     }
   }
 
