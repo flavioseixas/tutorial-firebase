@@ -1,0 +1,40 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Seixas - QUIZ</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+  <ion-slides #slides>
+    <ion-slide class="start-slide">
+      <button ion-button color="primary" (click)="nextSlide()">Começar!</button>
+    </ion-slide>
+
+    <ion-slide *ngFor="let question of questions; let i = index;">
+      <h3>Questão {{i+1}}</h3>
+      <flash-card [isFlipped]="question.flashCardFlipped">
+        <div class="flash-card-front">{{question.questionText}}</div>
+        <div class="flash-card-back">{{correct[i]}}</div>
+      </flash-card>
+      <h3>Qual a alternativa correta?</h3>
+      <ion-list no-lines radio-group>
+        <ion-item *ngFor="let answer of question.answers; let i = index;">
+          <ion-label>{{i+1}}. {{answer.answer}}</ion-label>
+          <ion-radio (click)="selectAnswer(answer, question)" [checked]="answer.selected" [disabled]="hasAnswered"></ion-radio>
+        </ion-item>
+      </ion-list>
+    </ion-slide>
+
+    <ion-slide>
+      <h2>Respostas corretas: {{score}} de {{answerN}}</h2>
+      <br/>
+      <button (click)="saveQuiz()" ion-button>Salvar resultado</button>
+      <br/>
+      <button *ngIf="score < answerN" (click)="restartQuiz()" ion-button clear>Tentar novamente</button>
+    </ion-slide>
+
+  </ion-slides>
+
+</ion-content>

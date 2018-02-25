@@ -1,0 +1,48 @@
+{
+    "questions": [
+        {
+            "questionText": "Quem descobriu o Brasil?",
+            "answers": [
+                {
+                    "answer": "Joaquim Barbosa",
+                    "correct": false,
+                    "selected": false
+                },
+                {
+                    "answer": "Cristovão Colombo",
+                    "correct": false,
+                    "selected": false
+                },
+                {
+                    "answer": "Pedro Alvares Cabral",
+                    "correct": true,
+                    "selected": false
+                }
+            ],
+            "flashCardFlipped": false,
+            "comments": "Isto é o que está registrado nos livros de história."
+        },
+        {
+            "questionText": "Quem descobriu a América?",
+            "answers": [
+                {
+                    "answer": "Joaquim Barbosa",
+                    "correct": false,
+                    "selected": false
+                },
+                {
+                    "answer": "Cristovão Colombo",
+                    "correct": true,
+                    "selected": false
+                },
+                {
+                    "answer": "Pedro Alvares Cabral",
+                    "correct": false,
+                    "selected": false
+                }
+            ],
+            "flashCardFlipped": false,
+            "comments": "Isto é o que está registrado nos livros de história."
+        }
+    ]
+}

@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Bloco de Notas
+      Seixas - QUIZ
     </ion-title>
     <ion-buttons end>
       <button ion-button (click)="logout()">
@@ -12,22 +12,13 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-card *ngFor="let note of notes" (click)="onItemClick(note)">
-    <ion-card-header>
-      {{ note.date | date }} 
-    </ion-card-header>    
-    <ion-card-content>
-      <ion-card-title>
-        {{ note.title }}
-      </ion-card-title>
-      <p>
-        {{ note.content }}
-      </p>
-    </ion-card-content>
-  </ion-card> 
-  <ion-fab right bottom>
-    <button ion-fab color="primary" (click)="onAddClick()">
-      <ion-icon name="add"></ion-icon>
-    </button>
-  </ion-fab>  
+  <ion-list>
+    <ion-item>
+        <ion-label floating>Entre com o código do teste</ion-label>
+        <ion-input type="text" [(ngModel)]="testId"></ion-input>
+    </ion-item>
+    <ion-fab center bottom>
+      <button ion-fab color="primary" (click)="onClickGo()">Go</button>
+    </ion-fab>  
+  </ion-list>
 </ion-content>

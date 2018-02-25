@@ -4,37 +4,42 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
+import { HttpClientModule } from '@angular/common/http';
+
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-import { DetailPage } from '../pages/detail/detail';
 import { LoginPage } from '../pages/login/login';
 import { SignupPage } from '../pages/signup/signup';
+import { QuizPage } from '../pages/quiz/quiz';
 
-import { NoteService } from './note.service';
 import { IonicStorageModule } from '@ionic/storage';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AuthService } from './auth.service';
+import { FlashCardComponent } from '../components/flash-card/flash-card';
+import { QuestionsProvider } from '../providers/questions/questions';
 
 export const firebaseConfig = {
-  apiKey: "AIzaSyDEy2Tj-pSPC2F5RiqXgIM2dKZgIRr3mr0",
-  authDomain: "blocodenotas-a3df0.firebaseapp.com",
-  databaseURL: "https://blocodenotas-a3df0.firebaseio.com",
-  projectId: "blocodenotas-a3df0",
-  storageBucket: "",
-  messagingSenderId: "412786282751"
+  apiKey: "AIzaSyDXAMr6Gt6ulpYkKdehGz89JGoZP6-ZFWs",
+  authDomain: "quiz-be383.firebaseapp.com",
+  databaseURL: "https://quiz-be383.firebaseio.com",
+  projectId: "quiz-be383",
+  storageBucket: "quiz-be383.appspot.com",
+  messagingSenderId: "559213845138"
 };
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    DetailPage,
     LoginPage,
     SignupPage,
+    QuizPage,
+    FlashCardComponent
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot(),
     AngularFireModule.initializeApp(firebaseConfig),
@@ -45,16 +50,16 @@ export const firebaseConfig = {
   entryComponents: [
     MyApp,
     HomePage,
-    DetailPage,
     LoginPage,
-    SignupPage
+    SignupPage,
+    QuizPage,
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    NoteService,
     AuthService,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    QuestionsProvider
   ]
 })
 export class AppModule {}

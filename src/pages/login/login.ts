@@ -22,10 +22,6 @@ export class LoginPage {
     private alertCtrl: AlertController) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
-  }
-
   signIn() {
     const loading = this.loadingCtrl.create({
       content: 'Signing you in...'
